@@ -1,77 +1,198 @@
+/* --- Hlavní obal aplikace --- */
 .app {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #36393f; /* Discord tmavá šedá */
+  background-color: #36393f;
+  background-image: radial-gradient(circle at center, #36393f 0%, #202225 100%);
   font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
+/* --- Kontejner pro formulář --- */
 .auth-box {
   background-color: #2f3136;
-  padding: 32px;
+  padding: 40px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
   width: 100%;
-  max-width: 400px;
-  color: #b9bbbe;
+  max-width: 420px;
   text-align: center;
+  color: #b9bbbe;
+  transition: transform 0.3s ease;
 }
 
+.auth-box:hover {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+
+/* --- Nadpisy a texty --- */
 .auth-box h1 {
   color: #ffffff;
+  font-size: 26px;
   margin-bottom: 8px;
-  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
+.auth-box p {
+  margin-bottom: 25px;
+  color: #b9bbbe;
+  font-size: 15px;
+}
+
+/* --- Vstupní pole --- */
 .auth-box input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
   background-color: #202225;
-  border: 1px solid #202225;
-  border-radius: 3px;
+  border: 2px solid #202225;
+  border-radius: 4px;
   color: #dcddde;
   font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.auth-box input:hover {
+  border-color: #040405;
 }
 
 .auth-box input:focus {
   border-color: #5865f2;
+  background-color: #202225;
   outline: none;
 }
 
+/* --- Tlačítka --- */
 .auth-box button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-top: 15px;
-  background-color: #5865f2; /* Discord modro-fialová */
+  background-color: #5865f2;
   color: #ffffff;
   border: none;
   border-radius: 3px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .auth-box button:hover {
   background-color: #4752c4;
 }
 
-/* Tlačítko pro heslo */
+.auth-box button:active {
+  background-color: #3c45a5;
+}
+
+/* --- Toggle hesla --- */
 .password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
   background: transparent !important;
   color: #5865f2 !important;
+  border: none !important;
+  padding: 5px !important;
   font-size: 12px !important;
   width: auto !important;
-  padding: 0 !important;
-  margin-top: 5px !important;
+  margin: 0 !important;
+  cursor: pointer;
 }
 
-.auth-box p {
-  margin-top: 20px;
-  font-size: 14px;
+.password-toggle:hover {
+  text-decoration: underline;
+  background: transparent !important;
 }
 
+/* --- Odkazy a span --- */
 .auth-box p span {
   color: #00a8fc;
   cursor: pointer;
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.auth-box p span:hover {
+  text-decoration: underline;
+}
+
+/* --- Chat kontejner --- */
+.chat-container {
+  background-color: #2f3136;
+  padding: 50px;
+  border-radius: 8px;
+  color: #ffffff;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Dodatečné úpravy pro mobilní zařízení --- */
+@media (max-width: 480px) {
+  .auth-box {
+    padding: 20px;
+    border-radius: 0;
+  }
+}
+
+/* Placeholder barva */
+::placeholder {
+  color: #72767d;
+  opacity: 1;
+}
+
+/* Scrollbar (volitelné pro Discord vibe) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #202225;
+  border-radius: 4px;
+}
+/* Styling pro patičku pod formulářem */
+.auth-footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #b9bbbe;
+}
+
+.auth-link {
+  color: #5865f2; /* Discord modrá */
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+  color: #7289da;
+}
+/* Styl pro počítadlo znaků - aby ladilo s Discord UI */
+.char-count {
+  font-size: 11px;
+  color: #8e9297; /* Jemnější šedá, která je v Discordu častá */
+  text-align: right; /* Zarovnáme doprava, vypadá to profesionálněji */
+  margin-top: -5px;
+  margin-bottom: 10px;
+  padding-right: 2px;
+  font-family: 'Whitney', sans-serif;
+  transition: color 0.2s;
+}
+
+/* Zvýraznění, když zbývá málo znaků (např. méně než 5) */
+.char-count.warning {
+  color: #ed4245; /* Discord červená pro varování */
+  font-weight: 600;
 }
