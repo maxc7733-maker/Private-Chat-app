@@ -15,3 +15,20 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server běží na http://localhost:${PORT}`);
 });
+const mysql = require('mysql2');
+
+// Vytvoření propojení
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',      // Výchozí uživatel v XAMPP
+  password: '',      // Výchozí heslo v XAMPP je prázdné
+  database: 'chat_db'
+});
+
+// Dotaz do databáze
+connection.query(
+  'SELECT * FROM messages',
+  function(err, results) {
+    console.log(results); // Zde uvidíš data ze své tabulky
+  }
+);
